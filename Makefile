@@ -29,7 +29,7 @@ WHITE		= \033[1;49;97m
 NAME		= philo
 OBJS		= $(SRCS:%.c=%.o)
 # LIBFT		= libft/libft.a
-CFLAGS		= -Wall -Werror -Wextra -glldb -I ./Includes -lpthread
+CFLAGS		= -Wall -Werror -Wextra -glldb -I ./Includes #-lpthread#
 OBJ_DIR 	= Objects
 OBJ_PATH	= $(addprefix $(OBJ_DIR)/, $(OBJS))
 

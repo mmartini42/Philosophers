@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:39:18 by mathmart          #+#    #+#             */
-/*   Updated: 2022/03/29 18:13:41 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:24:49 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 #include <sys/errno.h>
 
 # include "philo_struct.h"
+# include "philo_function.h"
 
 #endif
