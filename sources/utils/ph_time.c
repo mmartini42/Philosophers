@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   ph_time.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:39:18 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/03 17:28:15 by mathmart         ###   ########.fr       */
+/*   Created: 2022/04/03 16:53:02 by mathmart          #+#    #+#             */
+/*   Updated: 2022/04/03 16:53:15 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <sys/time.h>
-# include <pthread.h>
-# include <stdbool.h>
-# include <limits.h>
-# include <sys/errno.h>
+uint64_t	get_time(void)
+{
+	static struct timeval	tv;
 
-# include "philo_struct.h"
-# include "philo_function.h"
-
-#endif
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * (uint64_t)1000) + (tv.tv_usec / 1000));
+}
