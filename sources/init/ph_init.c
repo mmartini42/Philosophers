@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/10 16:02:46 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/10 16:08:28 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,26 @@ static void	ph_init_errors(int c)
 	}
 }
 
+static void	ph_errors_create(t_state *state)
+{
+	size_t	i;
+
+	if (state->philos)
+	{
+		i = -1;
+		while (++i < state->amount && state->philos[i])
+		{
+			pthread_mutex_destroy(&state->philos[i].lfork);
+			pthread_mutex_destroy(state->philos[i].rfork);
+		}
+		free(state->philos);
+		state->philos = NULL;
+	}
+	pthread_mutex_destroy(&state->dead);
+	state = NULL;
+	ph_init_errors(0);
+}
+
 void	ph_init_philo(t_state *state)
 {
 	size_t	i;
@@ -34,6 +54,7 @@ void	ph_init_philo(t_state *state)
 	if (!state->philos)
 		ph_init_errors(0);
 	i = 0;
+	ret = 0;
 	state->start = ph_get_time();
 	while (i < state->amount)
 	{
@@ -43,7 +64,8 @@ void	ph_init_philo(t_state *state)
 		state->philos[i].count = 0;
 		state->philos[i].last_eat = 0;
 		state->philos[i].state = state;
-		pthread_create(&state->philos[i].tid, NULL, ph_main_func, state->philos);
+		if (pthread_create(&state->philos[i].tid, NULL, ph_main_func, state->philos) != 0)
+			ph_errors_create(state);
 		i++;
 	}
 }
