@@ -6,13 +6,13 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:53:02 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/03 16:53:15 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:16:18 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-uint64_t	get_time(void)
+uint64_t	ph_get_time(void)
 {
 	static struct timeval	tv;
 

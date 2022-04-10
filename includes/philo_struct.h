@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/03 17:32:54 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:12:28 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ struct	s_state;
 typedef struct s_philo
 {
 	struct s_state	*state;
-	int				position;
-	int				lfork;
-	int				rfork;
-	int				eat;
-	int				count;
-	pthread_mutex_t	mutex;
-	pthread_mutex_t	eat_mut;
+	int				position; //a afficher + 1
+	pthread_mutex_t	lfork;
+	pthread_mutex_t	*rfork;
+	int				count; //cmb de fois ils ont manger
+	uint64_t		last_eat;
+	pthread_t		tid;
 }				t_philo;
 
 typedef struct s_state
@@ -37,9 +36,8 @@ typedef struct s_state
 	size_t			to_sleep;
 	int				must_eat;
 	t_philo			*philos;
-	pthread_mutex_t	*fork_mut;
+	uint64_t		start;
 	pthread_mutex_t	dead;
-	pthread_mutex_t	message;
 }					t_state;
 
 #endif
