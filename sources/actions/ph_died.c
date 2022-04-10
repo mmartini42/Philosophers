@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ph_died.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/10 17:36:19 by mathmart         ###   ########.fr       */
+/*   Created: 2022/04/10 17:26:09 by mathmart          #+#    #+#             */
+/*   Updated: 2022/04/10 18:14:32 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	ph_first_part(int ac, char *av[], t_state *state)
-{
-	ph_parsing(ac, av);
-	ph_init_state(state, ac, av);
-	ph_init_philo(state);
-}
-
-void	*ph_main_func(void *data)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)data;
-	while (1)
-	{
-		//if check die
-		//
-	}
-	return (NULL);
-}
-
-static void	ph_last_part(t_state *state)
+static void	ph_press_f(t_state *state)
 {
 	size_t	i;
 
@@ -49,13 +29,12 @@ static void	ph_last_part(t_state *state)
 	}
 	pthread_mutex_destroy(&state->dead);
 	state = NULL;
+	exit(EXIT_SUCCESS);
 }
 
-int	main(int ac, char *av[])
+void	ph_died(t_philo *philo)
 {
-	t_state	state;
-
-	ph_first_part(ac, av, &state);
-	ph_last_part(&state);
-	return (0);
+	printf("%llu %d died", (ph_get_time() - philo->state->start),\
+		philo->position);
+	ph_press_f(philo->state);
 }

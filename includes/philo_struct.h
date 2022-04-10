@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/07 15:12:28 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/10 17:08:18 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,14 @@ typedef struct s_state
 	uint64_t		start;
 	pthread_mutex_t	dead;
 }					t_state;
+
+typedef enum e_action
+{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DIED
+}			t_action;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:57:02 by mathmart          #+#    #+#             */
-/*   Updated: 2022/03/29 18:36:54 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/10 17:43:01 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ void	ph_display(const char *str)
 		i++;
 	}
 	write(1, "\n", 1);
+}
+
+void	ph_message(int action, t_state *state, int position)
+{
+	position += 1;
+	//Verifier si 0 mort pour ecrire
+	if (action == FORK)
+		printf("%llu %d has taken a fork", (ph_get_time() - state->start),\
+			position);
+	else if (action == EAT)
+		printf("%llu %d is eating", (ph_get_time() - state->start),\
+			position);
+	else if (action == SLEEP)
+		printf("%llu %d is sleeping", (ph_get_time() - state->start),\
+			position);
+	else if (action == THINK)
+		printf("%llu %d is thinking", (ph_get_time() - state->start),\
+			position);
 }
