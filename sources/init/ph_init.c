@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 17:23:39 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:42:02 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	ph_init_philo(t_state *state)
 			return (ph_errors_create(state, i));
 		i++;
 	}
+	state->is_create = 0;
 	return (true);
 }
 

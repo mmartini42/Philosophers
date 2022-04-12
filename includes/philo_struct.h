@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 15:56:17 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:59:57 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,7 @@ typedef struct s_state
 	t_philo			*philos;
 	uint64_t		start;
 	short			dead;
+	short			is_create;
 }					t_state;
-
-typedef enum e_action
-{
-	FORK,
-	EAT,
-	SLEEP,
-	THINK,
-	DIED
-}			t_action;
 
 #endif
