@@ -6,31 +6,11 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:38:10 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/10 17:48:41 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:19:51 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	ph_philo_satiate(t_state *state)
-{
-	size_t	i;
-
-	if (state->philos)
-	{
-		i = -1;
-		while (++i < state->amount)
-		{
-			pthread_mutex_destroy(&state->philos[i].lfork);
-			pthread_mutex_destroy(state->philos[i].rfork);
-		}
-		free(state->philos);
-		state->philos = NULL;
-	}
-	pthread_mutex_destroy(&state->dead);
-	state = NULL;
-	exit(EXIT_SUCCESS);
-}
 
 void	ph_eat(t_philo *philo)
 {

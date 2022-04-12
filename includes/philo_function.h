@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:55:42 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/10 17:24:51 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:15:49 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "philo.h"
 
 /* Parsing */
-void		ph_parsing(int ac, char *av[]);
+bool	ph_parsing(int ac, char *av[]);
 
 /* Utils */
 void		ph_display_error(const char *str);
@@ -26,12 +26,12 @@ int			ph_atoi(char *str);
 uint64_t	ph_get_time(void);
 
 /* Init */
-void		ph_init_philo(t_state *state);
-void		ph_init_state(t_state *state, int ac, char *av[]);
-// void		ph_destroy_state(t_state *state);
+bool		ph_init_philo(t_state *state);
+bool		ph_init_state(t_state *state, int ac, char *av[]);
 
 /* Philo */
 void		*ph_main_func(void *data);
-void		ph_sleep(t_philo *philo);
+void		ph_sleep(t_philo *philo, t_state *state);
+void		ph_think(t_philo *philo, t_state *state);
 
 #endif

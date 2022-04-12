@@ -6,27 +6,22 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/10 16:14:19 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 17:23:39 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	ph_init_errors(int c)
+static bool	ph_init_errors(int c)
 {
 	if (c == 0)
-	{
 		ph_display_error("Error init philo");
-		exit(EXIT_FAILURE);
-	}
 	else if (c == 1)
-	{
 		ph_display_error("Error Args");
-		exit(EXIT_FAILURE);
-	}
+	return (false);
 }
 
-static void	ph_errors_create(t_state *state, size_t max)
+static bool	ph_errors_create(t_state *state, size_t max)
 {
 	size_t	i;
 
@@ -43,16 +38,16 @@ static void	ph_errors_create(t_state *state, size_t max)
 	}
 	pthread_mutex_destroy(&state->dead);
 	state = NULL;
-	ph_init_errors(0);
+	return (ph_init_errors(0));
 }
 
-void	ph_init_philo(t_state *state)
+bool	ph_init_philo(t_state *state)
 {
 	size_t	i;
 
 	state->philos = (t_philo *)malloc(sizeof(*(state->philos)) * state->amount);
 	if (!state->philos)
-		ph_init_errors(0);
+		return (ph_init_errors(0));
 	i = 0;
 	state->start = ph_get_time();
 	while (i < state->amount)
@@ -64,12 +59,13 @@ void	ph_init_philo(t_state *state)
 		state->philos[i].last_eat = 0;
 		state->philos[i].state = state;
 		if (pthread_create(&state->philos[i].tid, NULL, ph_main_func, state->philos) != 0)
-			ph_errors_create(state, i);
+			return (ph_errors_create(state, i));
 		i++;
 	}
+	return (true);
 }
 
-void	ph_init_state(t_state *state, int ac, char *av[])
+bool	ph_init_state(t_state *state, int ac, char *av[])
 {
 	state->amount = ph_atoi(av[1]);
 	state->to_die = ph_atoi(av[2]);
@@ -78,11 +74,12 @@ void	ph_init_state(t_state *state, int ac, char *av[])
 	if (ac == 6)
 		state->must_eat = ph_atoi(av[5]);
 	else
-		state->must_eat = 0;
+		state->must_eat = -1;
 	if (state->amount < 2 || state->amount > 200
 		|| state->to_die < 60 || state->to_eat < 60
 		|| state->to_sleep < 60 || state->must_eat < 0)
-		ph_init_errors(1);
+		return (ph_init_errors(1));
 	state->philos = NULL;
-	pthread_mutex_init(&state->dead, NULL);
+	memset(&state->dead, 0, sizeof(short));
+	return (true);
 }

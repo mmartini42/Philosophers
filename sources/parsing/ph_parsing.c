@@ -6,17 +6,11 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:39:28 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/02 15:05:40 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:17:13 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	ph_pars_errors(void)
-{
-	ph_display_error("Error Args");
-	exit(EXIT_FAILURE);
-}
 
 static bool	ph_is_number(char *nb)
 {
@@ -32,17 +26,18 @@ static bool	ph_is_number(char *nb)
 	return (true);
 }
 
-void	ph_parsing(int ac, char *av[])
+bool	ph_parsing(int ac, char *av[])
 {
 	size_t	i;
 
 	if (ac < 5 || ac > 6)
-		ph_pars_errors();
+		return (false);
 	i = 1;
 	while (av[i])
 	{
 		if (!ph_is_number(av[i]))
-			ph_pars_errors();
+			return (false);
 		i++;
 	}
+	return (true);
 }
