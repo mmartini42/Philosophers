@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 18:02:27 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:30:26 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	*ph_main_func(void *data)
 
 	philo = (t_philo *)data;
 	state = philo->state;
-	while (state->is_create == 1)
-		;
+	/* while (state->is_create == 1)
+		; */
+	if (philo->position % 2 == 0)
+		usleep(1500);
 	while (!state->dead)
 	{
 		if (philo->count == state->must_eat && state->must_eat != -1)
@@ -68,7 +70,6 @@ static void	ph_last_part(t_state *state)
 		free(state->philos);
 		state->philos = NULL;
 	}
-	pthread_mutex_destroy(&state->dead);
 	state = NULL;
 }
 
@@ -78,6 +79,7 @@ int	main(int ac, char *av[])
 
 	if (!ph_first_part(ac, av, &state))
 		return (EXIT_FAILURE);
+	// pthread_join(state.philos->tid, NULL);
 	ph_last_part(&state);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:55:42 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 18:00:11 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:17:41 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ bool		ph_init_state(t_state *state, int ac, char *av[]);
 void		*ph_main_func(void *data);
 void		ph_sleep(t_philo *philo, t_state *state);
 void		ph_think(t_philo *philo, t_state *state);
+void		ph_take_fork(t_philo *philo, t_state *state);
+void		ph_eat(t_philo *philo, t_state *state);
 
 #endif

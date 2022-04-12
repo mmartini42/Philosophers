@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 17:42:02 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:23:17 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static bool	ph_errors_create(t_state *state, size_t max)
 		free(state->philos);
 		state->philos = NULL;
 	}
-	pthread_mutex_destroy(&state->dead);
 	state = NULL;
 	return (ph_init_errors(0));
 }
@@ -52,7 +51,7 @@ bool	ph_init_philo(t_state *state)
 	state->start = ph_get_time();
 	while (i < state->amount)
 	{
-		state->philos[i].position = i;
+		state->philos[i].position = i + 1;
 		pthread_mutex_init(&state->philos[i].lfork, NULL);
 		state->philos[i].rfork = &state->philos[(i + 1) % state->amount].lfork;
 		state->philos[i].count = 0;
@@ -75,11 +74,13 @@ bool	ph_init_state(t_state *state, int ac, char *av[])
 	if (ac == 6)
 		state->must_eat = ph_atoi(av[5]);
 	else
-		state->must_eat = -1;
+		state->must_eat = 0;
 	if (state->amount < 2 || state->amount > 200
 		|| state->to_die < 60 || state->to_eat < 60
 		|| state->to_sleep < 60 || state->must_eat < 0)
 		return (ph_init_errors(1));
+	if (ac < 6)
+		state->must_eat = -1;
 	state->philos = NULL;
 	memset(&state->dead, 0, sizeof(short));
 	return (true);
