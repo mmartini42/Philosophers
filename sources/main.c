@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 17:42:06 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:02:27 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	*ph_main_func(void *data)
 		;
 	while (!state->dead)
 	{
-		ph_take_fork(philo, state);
 		if (philo->count == state->must_eat && state->must_eat != -1)
-			return (NULL);//detach
+			break ;
+		ph_take_fork(philo, state);
 		ph_eat(philo, state);
 		ph_sleep(philo, state);
 		ph_think(philo, state);

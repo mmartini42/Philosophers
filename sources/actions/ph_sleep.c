@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:18:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 17:28:55 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:14:48 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 void	ph_sleep(t_philo *philo, t_state *state)
 {
+	uint64_t	start;
+
 	if (!state->dead)
+	{
 		printf("%llu %d is sleeping", (ph_get_time() - state->start),\
 			philo->position);
-	pthread_mutex_unlock(&philo->lfork);
-	pthread_mutex_unlock(philo->rfork);
-	usleep(state->to_sleep * 1000);
+		pthread_mutex_unlock(&philo->lfork);
+		pthread_mutex_unlock(philo->rfork);
+		start = ph_get_time();
+		while (1)
+		{
+			if ((ph_get_time() - start) >= state->to_sleep)
+				break ;
+			usleep (10);
+		}
+	}
 }
