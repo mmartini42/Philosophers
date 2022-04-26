@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 18:23:17 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:32:58 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,14 @@ bool	ph_init_philo(t_state *state)
 		pthread_mutex_init(&state->philos[i].lfork, NULL);
 		state->philos[i].rfork = &state->philos[(i + 1) % state->amount].lfork;
 		state->philos[i].count = 0;
-		state->philos[i].last_eat = 0;
+		state->philos[i].last_eat = ph_get_time();
 		state->philos[i].state = state;
-		if (pthread_create(&state->philos[i].tid, NULL, ph_main_func, state->philos) != 0)
-			return (ph_errors_create(state, i));
 		i++;
 	}
-	state->is_create = 0;
+	state->tid = malloc(sizeof(pthread_t) * state->amount);
+	if (state->tid == NULL)
+		return (ph_errors_create(state, i));
+	pthread_mutex_init(&state->check_meal, NULL);
 	return (true);
 }
 

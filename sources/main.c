@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/12 18:30:26 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/26 18:50:40 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,46 @@ static bool	ph_first_part(int ac, char *av[], t_state *state)
 	return (true);
 }
 
-void	*ph_main_func(void *data)
+static void	*ph_main_func(void *data)
 {
 	t_philo	*philo;
 	t_state	*state;
 
 	philo = (t_philo *)data;
 	state = philo->state;
-	/* while (state->is_create == 1)
-		; */
 	if (philo->position % 2 == 0)
-		usleep(1500);
+		usleep(state->to_eat);
 	while (!state->dead)
 	{
-		if (philo->count == state->must_eat && state->must_eat != -1)
-			break ;
 		ph_take_fork(philo, state);
 		ph_eat(philo, state);
 		ph_sleep(philo, state);
 		ph_think(philo, state);
 	}
 	return (NULL);
+}
+
+static void	ph_simulation(t_state *state)
+{
+	size_t	i;
+
+	memset(&state->is_create, 1, sizeof(short));
+	state->start = ph_get_time();
+	i = 0;
+	while (i < state->amount)
+	{
+		if (pthread_create(&state->tid[i], NULL,
+			ph_main_func(state->philos), &state->philos[i]) != 0)
+			memset(&state->is_create, 0, sizeof(short));
+		i++;
+	}
+	ph_check_eat(state);
+	i = 0;
+	while (i < state->amount)
+	{
+		pthread_detach(state->tid[i]);
+		i++;
+	}
 }
 
 static void	ph_last_part(t_state *state)
@@ -79,7 +98,7 @@ int	main(int ac, char *av[])
 
 	if (!ph_first_part(ac, av, &state))
 		return (EXIT_FAILURE);
-	// pthread_join(state.philos->tid, NULL);
+	ph_simulation(&state);
 	ph_last_part(&state);
 	return (0);
 }

@@ -1,4 +1,5 @@
 SRCS += 
+SRCS += Sources/actions/ph_check.c
 SRCS += Sources/actions/ph_died.c
 SRCS += Sources/actions/ph_eat.c
 SRCS += Sources/actions/ph_fork.c
