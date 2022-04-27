@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 18:21:50 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/26 18:43:32 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:19:23 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	ph_check_eat(t_state *state)
 			diff = ph_get_time() - state->philos[index].last_eat;
 			if (diff >= state->to_die)
 			{
-				ph_died(state->philos);
+				ph_died(state->philos, state);
 				return ;
 			}
+			pthread_mutex_unlock(&state->check_meal);
 			index++;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/26 18:50:40 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/27 16:43:35 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,19 @@ static void	*ph_main_func(void *data)
 	state = philo->state;
 	if (philo->position % 2 == 0)
 		usleep(state->to_eat);
-	while (!state->dead)
+	while (!state->dead && state->is_create)
 	{
-		ph_take_fork(philo, state);
-		ph_eat(philo, state);
-		ph_sleep(philo, state);
-		ph_think(philo, state);
+		if (!state->dead && state->is_create)
+			ph_take_fork(philo, state);
+		if (!state->dead && state->is_create)
+			ph_eat(philo, state);
+		if (!state->dead && state->is_create)
+			ph_sleep(philo, state);
+		if ((!state->dead && state->must_eat != -1) && \
+			(philo->count == state->must_eat))
+			return (NULL);
+		if (!state->dead && state->is_create)
+			ph_think(philo, state);
 	}
 	return (NULL);
 }
@@ -60,8 +67,8 @@ static void	ph_simulation(t_state *state)
 	i = 0;
 	while (i < state->amount)
 	{
-		if (pthread_create(&state->tid[i], NULL,
-			ph_main_func(state->philos), &state->philos[i]) != 0)
+		if (pthread_create(&state->tid[i], NULL, \
+			ph_main_func, &state->philos[i]) != 0)
 			memset(&state->is_create, 0, sizeof(short));
 		i++;
 	}

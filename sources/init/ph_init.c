@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/26 18:32:58 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/27 17:03:47 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ bool	ph_init_philo(t_state *state)
 	if (state->tid == NULL)
 		return (ph_errors_create(state, i));
 	pthread_mutex_init(&state->check_meal, NULL);
+	pthread_mutex_init(&state->can_write, NULL);
 	return (true);
 }
 
