@@ -4,7 +4,6 @@ SRCS += Sources/actions/ph_died.c
 SRCS += Sources/actions/ph_eat.c
 SRCS += Sources/actions/ph_fork.c
 SRCS += Sources/actions/ph_sleep.c
-SRCS += Sources/actions/ph_think.c
 SRCS += Sources/init/ph_init.c
 SRCS += Sources/main.c
 SRCS += Sources/parsing/ph_parsing.c

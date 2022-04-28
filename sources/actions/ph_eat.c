@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:38:10 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/27 17:07:19 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:48:57 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 void	ph_eat(t_philo *philo, t_state *state)
 {
-	uint64_t	precision;
+	uint64_t	difftime;
 
 	if (!state->dead && state->is_create)
 	{
-		pthread_mutex_lock(&state->can_write);
-		printf("%llu %d is eating\n", (ph_get_time() - state->start), \
-			philo->position);
-		pthread_mutex_unlock(&state->can_write);
+		ph_display(state, philo, EAT);
 		philo->count += 1;
 		philo->last_eat = ph_get_time();
-		precision = ph_get_time();
+		difftime = ph_get_time();
 		while (1)
 		{
-			if ((ph_get_time() - precision) >= state->to_eat)
+			if ((ph_get_time() - difftime) >= state->to_eat)
 				break ;
 			usleep(10);
 		}

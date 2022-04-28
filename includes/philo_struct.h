@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/27 16:51:21 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:31:34 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include "philo.h"
 
 struct	s_state;
+
+typedef enum e_action
+{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD
+}			t_action;
 
 typedef struct s_philo
 {

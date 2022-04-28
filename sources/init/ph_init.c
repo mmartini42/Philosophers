@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/27 17:03:47 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:18:02 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	ph_init_state(t_state *state, int ac, char *av[])
 		state->must_eat = ph_atoi(av[5]);
 	else
 		state->must_eat = 0;
-	if (state->amount < 2 || state->amount > 200
+	if (state->amount < 1 || state->amount > 200
 		|| state->to_die < 60 || state->to_eat < 60
 		|| state->to_sleep < 60 || state->must_eat < 0)
 		return (ph_init_errors(1));

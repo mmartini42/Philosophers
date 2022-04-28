@@ -6,19 +6,11 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:54:08 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/27 16:43:35 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/28 15:20:39 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/*
-	timestamp_in_ms X has taken a fork
-	timestamp_in_ms X is eating
-	timestamp_in_ms X is sleeping
-	timestamp_in_ms X is thinking
-	timestamp_in_ms X died
-*/
 
 static bool	ph_first_part(int ac, char *av[], t_state *state)
 {
@@ -40,7 +32,7 @@ static void	*ph_main_func(void *data)
 	philo = (t_philo *)data;
 	state = philo->state;
 	if (philo->position % 2 == 0)
-		usleep(state->to_eat);
+		usleep(1500);
 	while (!state->dead && state->is_create)
 	{
 		if (!state->dead && state->is_create)
@@ -53,7 +45,7 @@ static void	*ph_main_func(void *data)
 			(philo->count == state->must_eat))
 			return (NULL);
 		if (!state->dead && state->is_create)
-			ph_think(philo, state);
+			ph_display(state, philo, THINK);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 17:55:42 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/27 17:18:42 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:33:08 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool		ph_parsing(int ac, char *av[]);
 
 /* Utils */
 void		ph_display_error(const char *str);
-void		ph_display(const char *str);
+void		ph_display(t_state *state, t_philo *philo, short action);
 int			ph_atoi(char *str);
 uint64_t	ph_get_time(void);
 
