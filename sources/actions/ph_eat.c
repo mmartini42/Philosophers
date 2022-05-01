@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:38:10 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/28 14:48:57 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/05/01 21:32:03 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ph_eat(t_philo *philo, t_state *state)
 {
 	uint64_t	difftime;
 
-	if (!state->dead && state->is_create)
+	if (!state->dead && state->is_create && philo->is_alive)
 	{
 		ph_display(state, philo, EAT);
 		philo->count += 1;
@@ -29,4 +29,6 @@ void	ph_eat(t_philo *philo, t_state *state)
 			usleep(10);
 		}
 	}
+	pthread_mutex_unlock(&philo->right_fork);
+	pthread_mutex_unlock(philo->left_fork);
 }

@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:47:26 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/28 15:18:02 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/05/01 21:23:20 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,24 @@ static bool	ph_errors_create(t_state *state, size_t max)
 		i = -1;
 		while (++i < max)
 		{
-			pthread_mutex_destroy(&state->philos[i].lfork);
-			pthread_mutex_destroy(state->philos[i].rfork);
+			pthread_mutex_destroy(&state->philos[i].right_fork);
+			pthread_mutex_destroy(state->philos[i].left_fork);
 		}
 		free(state->philos);
 		state->philos = NULL;
 	}
 	state = NULL;
 	return (ph_init_errors(0));
+}
+
+static void	ph_init_individual(t_state *state, t_philo *philo, int index)
+{
+	philo->position = index + 1;
+	philo->is_alive = 1;
+	philo->count = 0;
+	pthread_mutex_init(&philo->right_fork, NULL);
+	philo->last_eat = ph_get_time();
+	philo->state = state;
 }
 
 bool	ph_init_philo(t_state *state)
@@ -48,17 +58,14 @@ bool	ph_init_philo(t_state *state)
 	if (!state->philos)
 		return (ph_init_errors(0));
 	i = 0;
-	state->start = ph_get_time();
 	while (i < state->amount)
 	{
-		state->philos[i].position = i + 1;
-		pthread_mutex_init(&state->philos[i].lfork, NULL);
-		state->philos[i].rfork = &state->philos[(i + 1) % state->amount].lfork;
-		state->philos[i].count = 0;
-		state->philos[i].last_eat = ph_get_time();
-		state->philos[i].state = state;
+		ph_init_individual(state, &state->philos[i], i);
+		if (i > 0)
+			state->philos[i].left_fork = &state->philos[i - 1].right_fork;
 		i++;
 	}
+	state->philos[0].left_fork = &state->philos[i - 1].right_fork;
 	state->tid = malloc(sizeof(pthread_t) * state->amount);
 	if (state->tid == NULL)
 		return (ph_errors_create(state, i));

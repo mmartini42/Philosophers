@@ -6,7 +6,7 @@
 /*   By: mathmart <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 14:55:01 by mathmart          #+#    #+#             */
-/*   Updated: 2022/04/28 14:31:34 by mathmart         ###   ########.fr       */
+/*   Updated: 2022/05/01 21:06:21 by mathmart         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ typedef struct s_philo
 {
 	struct s_state	*state;
 	int				position;
-	pthread_mutex_t	lfork;
-	pthread_mutex_t	*rfork;
+	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*left_fork;
 	int				count;
+	short			is_alive;
 	uint64_t		last_eat;
 }				t_philo;
 
